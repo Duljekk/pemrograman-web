@@ -1,0 +1,25 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "dev": "nodemon src/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.20.1",
+    "cors": "^2.8.5",
+    "curl": "^0.1.4",
+    "express": "^4.18.2",
+    "express-server-status": "^1.0.3",
+    "firebase": "^9.14.0",
+    "firebase-admin": "^11.3.0",
+    "nodemon": "^2.0.20",
+    "randomstring": "^1.2.3",
+    "vue-router": "^4.1.6",
+    "vuex": "^4.0.2"
+  }
+}
