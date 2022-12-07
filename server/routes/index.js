@@ -23,4 +23,36 @@ router.get("/:code", (req, res) => {
     });
 });
 
+app.post("/user/register", (req, res)=>{
+    try {
+        users.add({
+            email: req.body.email,
+            password: req.body.password
+        })
+        res.send({
+            status: true,
+            message: "Succesfully created user"
+        })
+    }
+    catch (e) {
+        console.log(e)
+    }
+})
+
+app.get("/user/login", (req, res)=>{
+    try {
+        let userData = []
+        users.get().then((querySnapshot)=>{
+            querySnapshot.forEach((doc) => {
+                let id = doc.id
+                userData.push({ id, ...doc.data()})
+            })
+            res.send(userData)
+        })   
+    }
+    catch (e){
+        console.log(e)
+    }
+})
+
 module.exports = router;
