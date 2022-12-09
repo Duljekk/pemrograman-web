@@ -47,22 +47,21 @@ export default {
   methods: {
     async loginSuccess(email, password){
       try {
-        const res = await axios.get("http://localhost:8000/user/login", {
+        const res = await axios.post("http://localhost:8000/user/login", {
           email: this.email,
-          password: this.password
-
+          password: this.password,
         }).then((response)=>{
-          signInWithEmailAndPassword(auth, email, password)
-          .then((userCredential) => {
+            console.log(response)
             // Signed in 
-            const user = userCredential.user;
-            const uid = user.uid
+            // const user = userCredential.user;
+            const uid = response.data
             console.log(uid)
+            localStorage.setItem('uid', uid)
             this.$router.push({ path: `/user/${uid}` });
             // ...
           console.log(response)
         })
-        })} catch (error) {
+        } catch (error) {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage)
