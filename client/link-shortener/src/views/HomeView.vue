@@ -1,6 +1,3 @@
-<script>
-</script>
-
 <template>
 
   <div class="jumbotron" style="margin-top: 25px; margin-left: 50px; margin-right: 50px;">
@@ -56,6 +53,8 @@
 </template>
 
 <script>
+import { initializeApp } from "firebase/app"
+import { getAuth, signOut } from "firebase/auth";
 
 export default {
   data() {
@@ -66,6 +65,38 @@ export default {
         {id: 3, link: "test-link3.com", shortLink: "l.id/789", clickCount: "12"}
       ]
     }
-  }
+  },
+  beforeMount() {
+        this.check()
+    },
+    methods: {
+        logout(){
+            try 
+            {
+                signOut(auth)
+                .then(() => {
+                    localStorage.removeItem('uid')
+                    console.log('lah keluar bang')
+                    this.$router.push('/')
+                })
+                .catch((e) => {
+                    console.log(e)
+                })
+            } 
+            catch (e) 
+            {
+                console.log(e)
+            } 
+        },
+        check() {
+            if (localStorage.getItem('uid') == null || localStorage.getItem('uid') == '') {
+                this.$router.push('/')
+            }
+            else
+            {
+                // this.$router.push(`/user/${localStorage.getItem('uid')}`)
+            }
+        }
+    }
 }
 </script>
