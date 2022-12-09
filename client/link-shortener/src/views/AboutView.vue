@@ -62,14 +62,10 @@ data() {
           email: this.email,
           password: this.password
         }).then((response)=>{
-          const auth = getAuth();
-          createUserWithEmailAndPassword(auth, this.email, this.password)
-          .then((userCredential) => {
+          console.log(response)
             // Signed in 
-            const user = userCredential.user;
-            const uid = user.uid
+            const uid = response.data
             console.log(uid)
-            // ...
             if(this.email !== null && this.password !== null){
             this.isComplete = true
             }
@@ -79,8 +75,9 @@ data() {
               this.passwordMissing = true
             }
           console.log(response)
-        })
-        })} catch (error) {
+        }
+        )}
+        catch (error) {
         const errorCode = error.code;
         const errorMessage = error.message;
         console.log(errorCode, errorMessage)
