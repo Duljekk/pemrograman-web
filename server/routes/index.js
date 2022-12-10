@@ -29,13 +29,15 @@ router.get("/:code", (req, res) => {
     });
 });
 
-app.post("/user/register", (req, res)=>{
+
+
+app.post("/user/register", async (req, res)=>{
     const users = db.collection("userInfo")
     let email = req.body.email
     let password = req.body.password
     try {
         const auth = getAuth();
-        createUserWithEmailAndPassword(auth, email, password)
+        await createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential)=>{
             const user = userCredential.user
             const uid = user.uid
@@ -52,15 +54,16 @@ app.post("/user/register", (req, res)=>{
     }
     catch (e) {
         console.log(e)
+        res.send(e)
     }
 })
 
-app.post("/user/login", (req, res)=>{
+app.post("/user/login", async (req, res)=>{
     const users = db.collection("userInfo")
     let email = req.body.email
     let password = req.body.password
     try {
-        signInWithEmailAndPassword(auth, email, password)
+        await signInWithEmailAndPassword(auth, email, password)
           .then((userCredential) => {
             // Signed in 
             const user = userCredential.user;
@@ -79,7 +82,8 @@ app.post("/user/login", (req, res)=>{
     }
     catch (e){
         console.log(e)
-    }
+        res.send(e)
+    } 
 })
 
 module.exports = router;
